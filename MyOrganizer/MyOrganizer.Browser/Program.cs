@@ -3,9 +3,10 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Browser;
 using Avalonia.ReactiveUI;
-using MyOrganizer;
 
 [assembly: SupportedOSPlatform("browser")]
+
+namespace MyOrganizer.Browser;
 
 internal sealed partial class Program
 {

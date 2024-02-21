@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\net8.0\MyOrganizer.Notes.Ui.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\net8.0\MyOrganizer.Notes.Ui.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MyOrganizer.Notes\MyOrganizer.Notes.csproj" />
+      <ProjectReference Include="..\MyOrganizer.Storage.Ui\MyOrganizer.Storage.Ui.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="View\NoteEntryDetailView.axaml.cs">
+        <DependentUpon>PasswordEntryDetailView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+
+</Project>

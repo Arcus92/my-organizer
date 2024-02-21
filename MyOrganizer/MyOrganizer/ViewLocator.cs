@@ -1,28 +1,24 @@
-using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using MyOrganizer.ViewModels;
+using MyOrganizer.Common;
 
 namespace MyOrganizer;
 
+/// <summary>
+/// The main view locator for <see cref="ViewModelBase"/>.
+/// </summary>
 public class ViewLocator : IDataTemplate
 {
+    /// <inheritdoc />
     public Control? Build(object? data)
     {
-        if (data is null)
+        if (data is not ViewModelBase viewModel)
             return null;
 
-        var name = data.GetType().FullName!.Replace("ViewModel", "View", StringComparison.Ordinal);
-        var type = Type.GetType(name);
-
-        if (type != null)
-        {
-            return (Control)Activator.CreateInstance(type)!;
-        }
-
-        return new TextBlock { Text = "Not Found: " + name };
+        return viewModel.Build();
     }
 
+    /// <inheritdoc />
     public bool Match(object? data)
     {
         return data is ViewModelBase;

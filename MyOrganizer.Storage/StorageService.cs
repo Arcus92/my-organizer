@@ -7,6 +7,28 @@ namespace MyOrganizer.Storage;
 /// </summary>
 public class StorageService
 {
+    #region Entry
+
+    /// <summary>
+    /// Creates a new entry for the given identifier.
+    /// </summary>
+    /// <param name="identifier">The entity controller identifier.</param>
+    /// <param name="entry">Returns the entry.</param>
+    /// <returns>Returns if the controller was found and the entry was created.</returns>
+    public bool TryCreateEntry(string identifier, [MaybeNullWhen(false)] out Entry entry)
+    {
+        if (!TryGetEntityController(identifier, out var controller))
+        {
+            entry = null;
+            return false;
+        }
+
+        entry = controller.Create();
+        return true;
+    }
+    
+    #endregion Entry
+    
     #region Controllers
 
     /// <summary>

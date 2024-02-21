@@ -11,6 +11,11 @@ public class PasswordField
     public PasswordFieldType Type { get; set; }
 
     /// <summary>
+    /// Gets and sets the fields name.
+    /// </summary>
+    public string Name { get; set; } = "";
+
+    /// <summary>
     /// Gets and sets the fields value.
     /// </summary>
     public string Value { get; set; } = "";

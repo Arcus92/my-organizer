@@ -6,12 +6,7 @@ namespace MyOrganizer.Storage;
 public class Vault
 {
     /// <summary>
-    /// Gets and sets the name of the vault.
-    /// </summary>
-    public string Name { get; set; } = "";
-
-    /// <summary>
-    /// Gets the list of loaded entries.
+    /// Gets the list of entries.
     /// </summary>
     public List<Entry> Entries { get; } = [];
 }

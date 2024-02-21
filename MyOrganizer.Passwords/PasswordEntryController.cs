@@ -9,7 +9,10 @@ public class PasswordEntryController : IEntryController
 {
     /// <inheritdoc />
     string IEntryController.Identifier => Identifier;
-    
+
     /// <inheritdoc cref="IEntryController.Identifier"/>
     public static string Identifier => "organizer.password";
+    
+    /// <inheritdoc />
+    public Entry Create() => new PasswordEntry();
 }

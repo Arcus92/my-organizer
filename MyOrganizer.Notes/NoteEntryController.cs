@@ -12,4 +12,7 @@ public class NoteEntryController : IEntryController
     
     /// <inheritdoc cref="IEntryController.Identifier"/>
     public static string Identifier => "organizer.note";
+    
+    /// <inheritdoc />
+    public Entry Create() => new NoteEntry();
 }

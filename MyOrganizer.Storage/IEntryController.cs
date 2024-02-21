@@ -9,4 +9,10 @@ public interface IEntryController
     /// Gets the identifier of the entity controller.
     /// </summary>
     string Identifier { get; }
+
+    /// <summary>
+    /// Creates a new entry from the given controller.
+    /// </summary>
+    /// <returns></returns>
+    Entry Create();
 }

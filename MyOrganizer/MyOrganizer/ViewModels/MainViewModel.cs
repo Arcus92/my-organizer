@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
+using System.Reactive.Concurrency;
+using System.Threading.Tasks;
 using MyOrganizer.Common;
 using MyOrganizer.Notes;
 using MyOrganizer.Notes.Ui;
 using MyOrganizer.Passwords;
 using MyOrganizer.Passwords.Ui;
 using MyOrganizer.Storage;
+using MyOrganizer.Storage.Sources;
 using MyOrganizer.Storage.Ui;
 using MyOrganizer.Storage.Ui.ViewModel;
 using MyOrganizer.Views;
@@ -41,36 +44,16 @@ public class MainViewModel : ViewModelBase<MainView>
                 
             });
         
-        var vault = new Vault()
-        {
-            Name = "Notes",
-            Entries =
-            {
-                new NoteEntry
-                {
-                    Name = "Test note #1",
-                    CreatedAt = DateTime.Now,
-                    ModifiedAt = DateTime.Now,
-                    Content = "Remember"
-                },
-                new NoteEntry()
-                {
-                    Name = "Test note #2",
-                    CreatedAt = DateTime.Now,
-                    ModifiedAt = DateTime.Now,
-                    Content = "Remember"
-                },
-                new PasswordEntry()
-                {
-                    Name = "Test password #1",
-                    CreatedAt = DateTime.Now,
-                    ModifiedAt = DateTime.Now,
-                }
-            }
-        };
-
-
         EntryViewModels = new ObservableCollection<IEntryViewModel>();
+        
+        RxApp.MainThreadScheduler.Schedule(LoadVaults);
+    }
+    
+    private async void LoadVaults()
+    {
+        var vaultSource = new VaultDemoSource();
+        var options = new VaultLoadOptions(_storageService);
+        var vault = await vaultSource.LoadAsync(options);
         foreach (var entry in vault.Entries)
         {
             if (_storageService.TryCreateEntryViewModel(entry, EntryViewType.Item, out var viewModel))

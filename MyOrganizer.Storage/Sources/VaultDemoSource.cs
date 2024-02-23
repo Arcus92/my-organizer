@@ -6,6 +6,9 @@ namespace MyOrganizer.Storage.Sources;
 public class VaultDemoSource : IVaultSource
 {
     /// <inheritdoc />
+    public Guid Id => new("9ad87240-0c2a-46d9-b1c7-d77cc1617974");
+    
+    /// <inheritdoc />
     public string Name => "Demo";
 
     /// <inheritdoc />
@@ -19,12 +22,16 @@ public class VaultDemoSource : IVaultSource
         if (options.StorageService.TryCreateEntry("organizer.password", out var entry))
         {
             entry.Name = "My password";
+            entry.CreatedAt = DateTime.Now;
+            entry.ModifiedAt = DateTime.Now;
             vault.Entries.Add(entry);
         }
         
         if (options.StorageService.TryCreateEntry("organizer.note", out entry))
         {
             entry.Name = "My note";
+            entry.CreatedAt = DateTime.Now;
+            entry.ModifiedAt = DateTime.Now;
             vault.Entries.Add(entry);
         }
         

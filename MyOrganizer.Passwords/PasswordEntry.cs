@@ -7,9 +7,6 @@ namespace MyOrganizer.Passwords;
 /// </summary>
 public class PasswordEntry : Entry
 {
-    /// <inheritdoc />
-    public override string Identifier => PasswordEntryController.Identifier;
-
     /// <summary>
     /// Gets the list of fields for this password form.
     /// </summary>

@@ -9,12 +9,7 @@ public abstract class Entry
     /// Gets and sets the id of the entry.
     /// </summary>
     public Guid Id { get; set; } = Guid.NewGuid();
-
-    /// <summary>
-    /// Gets the <see cref="IEntryController.Identifier"/> for this entry type.
-    /// </summary>
-    public abstract string Identifier { get; }
-
+    
     /// <summary>
     /// Gets and sets the name of the entry
     /// </summary>

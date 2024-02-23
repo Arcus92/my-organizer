@@ -6,6 +6,11 @@ namespace MyOrganizer.Storage.Sources;
 public interface IVaultSource
 {
     /// <summary>
+    /// Gets the id of the database.
+    /// </summary>
+    Guid Id { get; }
+
+    /// <summary>
     /// Gets the name of the vault.
     /// </summary>
     string Name { get; }

@@ -11,7 +11,4 @@ public class NoteEntry : Entry
     /// Gets and sets the notes content.
     /// </summary>
     public string Content { get; set; } = "";
-
-    /// <inheritdoc />
-    public override string Identifier => NoteEntryController.Identifier;
 }

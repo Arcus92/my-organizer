@@ -1,9 +1,16 @@
-using Avalonia.Controls;
+using Avalonia.ReactiveUI;
+using MyOrganizer.ViewModels;
 
 namespace MyOrganizer.Views;
 
-public partial class MainWindow : Window
+/// <summary>
+/// The main application window for the Desktop.
+/// </summary>
+public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
 {
+    /// <summary>
+    /// Create the main window.
+    /// </summary>
     public MainWindow()
     {
         InitializeComponent();

@@ -1,32 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using System.Reactive.Concurrency;
-using System.Threading.Tasks;
 using MyOrganizer.Common;
-using MyOrganizer.Notes;
-using MyOrganizer.Notes.Ui;
-using MyOrganizer.Passwords;
-using MyOrganizer.Passwords.Ui;
 using MyOrganizer.Storage;
 using MyOrganizer.Storage.Sources;
 using MyOrganizer.Storage.Ui;
 using MyOrganizer.Storage.Ui.ViewModel;
 using MyOrganizer.Views;
 using ReactiveUI;
+using Splat;
 
 namespace MyOrganizer.ViewModels;
 
+/// <summary>
+/// The view model for <see cref="MainView"/>. This hosts the entire applications content.
+/// </summary>
 public class MainViewModel : ViewModelBase<MainView>
 {
     private readonly StorageService _storageService;
     
+    /// <summary>
+    /// Create the main view model.
+    /// </summary>
     public MainViewModel()
     {
-        _storageService = new StorageService();
-        _storageService.RegisterController<NoteEntryUiController>();
-        _storageService.RegisterController<PasswordEntryUiController>();
+        _storageService = Locator.Current.GetRequiredService<StorageService>();
 
         this.WhenAnyValue(x => x.SelectedEntry)
             .Subscribe(viewModel =>
@@ -44,7 +42,7 @@ public class MainViewModel : ViewModelBase<MainView>
                 
             });
         
-        EntryViewModels = new ObservableCollection<IEntryViewModel>();
+        Entries = new ObservableCollection<IEntryViewModel>();
         
         RxApp.MainThreadScheduler.Schedule(LoadVaults);
     }
@@ -58,15 +56,21 @@ public class MainViewModel : ViewModelBase<MainView>
         {
             if (_storageService.TryCreateEntryViewModel(entry, EntryViewType.Item, out var viewModel))
             {
-                EntryViewModels.Add(viewModel);
+                Entries.Add(viewModel);
             }
         }
     }
 
-    public ObservableCollection<IEntryViewModel> EntryViewModels { get; }
+    /// <summary>
+    /// Gets the list of entries.
+    /// </summary>
+    public ObservableCollection<IEntryViewModel> Entries { get; }
 
     private IEntryViewModel? _selectedEntry;
 
+    /// <summary>
+    /// Gets and sets the selected entry.
+    /// </summary>
     public IEntryViewModel? SelectedEntry
     {
         get => _selectedEntry;
@@ -76,9 +80,12 @@ public class MainViewModel : ViewModelBase<MainView>
 
     private ViewModelBase? _mainContent;
 
+    /// <summary>
+    /// Gets the main content view model to display.
+    /// </summary>
     public ViewModelBase? MainContent
     {
         get => _mainContent;
-        set => this.RaiseAndSetIfChanged(ref _mainContent, value);
+        private set => this.RaiseAndSetIfChanged(ref _mainContent, value);
     }
 }
